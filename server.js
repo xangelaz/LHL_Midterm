@@ -44,12 +44,42 @@ app.use('/users', usersRoutes);
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
+
+// newStory retrieves the text box - showing in console.log
+// Need newStory to render on the homepage after "Create" is clicked
+
+
+// GET ROUTES
 app.get('/', (req, res) => {
-  res.render('index');
+  res.redirect('/homepage');
+});
+
+app.get('/homepage', (req, res) => {
+  const newStory = req.body.story;
+  res.render('index', { newStory });
+});
+
+app.get('/homepage/new', (req, res) => {
+  res.render('homepage_new');
+});
+
+app.get('/my_stories', (req, res) => {
+  res.render('my_stories');
+});
+
+
+// POST ROUTES
+
+// Need POST route for when a user creates a new story
+// Should refresh and see the new story listed
+
+app.post("/homepage", (req, res) => {
+  const newStory = req.body.story;
+  console.log('newStory:', newStory);
+  res.render('index', { newStory });
 });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
 
-//test commit
