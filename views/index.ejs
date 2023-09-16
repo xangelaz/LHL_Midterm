@@ -20,11 +20,11 @@
 <body>
   <%- include('navbar') %>
   <h1>Have fun! 🥔</h1>
-  <tr>
-    <td>
-      <%= newStory %>
-    </td>
-  </tr>
+  <p>
+    <%= newStory %>
+    <button onclick="location.href = 'contributions';" type="button" value="redirect" class="btn btn-primary" id="contribute-button">Add Contribution</button>
+    Number of contributions: 3
+  <p>
 </body>
 
 </html>

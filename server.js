@@ -1,6 +1,16 @@
 // load .env data into process.env
 require('dotenv').config();
 
+// Connect to PostgreSQL
+const { Pool } = require('pg');
+
+const pool = new Pool({
+  user: 'vagrant',
+  password: '123',
+  host: 'localhost',
+  database: 'lhl_midterm'
+});
+
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
@@ -47,7 +57,10 @@ app.use('/users', usersRoutes);
 
 // newStory retrieves the text box - showing in console.log
 // Need newStory to render on the homepage after "Create" is clicked
-
+const exStory = {
+  story1: 'Mary had a little lamb',
+  user: 'Naruto',
+};
 
 // GET ROUTES
 app.get('/', (req, res) => {
@@ -67,6 +80,14 @@ app.get('/my_stories', (req, res) => {
   res.render('my_stories');
 });
 
+app.get('/contributions', (req, res) => {
+  const newStory = {
+    exStory,
+  }
+  console.log(newStory);
+  res.render('contributions', newStory );
+});
+
 
 // POST ROUTES
 
@@ -75,7 +96,7 @@ app.get('/my_stories', (req, res) => {
 
 app.post("/homepage", (req, res) => {
   const newStory = req.body.story;
-  console.log('newStory:', newStory);
+  // console.log('newStory:', newStory);
   res.render('index', { newStory });
 });
 
