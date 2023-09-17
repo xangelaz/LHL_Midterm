@@ -20,9 +20,15 @@
     <%- include('navbar') %>
     <main style="margin: 1em;">
       <h3>My Stories</h3>
-      <li>
-        Story 1
-      </li>
+      <!-- I think we want to order the list of stories by date created? -->
+      <ol>
+        <li>
+          <%= newStory %>
+        </li>
+        <li>
+          <%= newStory %>
+        </li>
+      </ol>
     </main>
     <!-- Bootstrap JS -->
     <script

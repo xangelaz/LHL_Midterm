@@ -57,35 +57,42 @@ app.use('/users', usersRoutes);
 
 // newStory retrieves the text box - showing in console.log
 // Need newStory to render on the homepage after "Create" is clicked
+
+// storyDb is temporary database until we connect the real one
+const storyDb = {}
+let id = 0
+// makeId function just increases the id by +1 each time
+function makeId() { return id++ }
+
+// example story that is in the storyDb
 const exStory = {
-  story1: 'Mary had a little lamb',
-  user: 'Naruto',
+  title: 'Example Story',
+  content: 'Mary had a little lamb',
+  creatorId: 0,
 };
+
+storyDb[makeId()] = exStory;
 
 // GET ROUTES
 app.get('/', (req, res) => {
-  res.redirect('/homepage');
+  res.render('index', { storyDb })
 });
 
-app.get('/homepage', (req, res) => {
-  const newStory = req.body.story;
-  res.render('index', { newStory });
-});
-
-app.get('/homepage/new', (req, res) => {
-  res.render('homepage_new');
+app.get('/new', (req, res) => {
+  res.render('new');
 });
 
 app.get('/my_stories', (req, res) => {
-  res.render('my_stories');
+  let newStory = exStory.content
+  res.render('my_stories', { newStory });
 });
 
 app.get('/contributions', (req, res) => {
-  const newStory = {
-    exStory,
-  }
-  console.log(newStory);
-  res.render('contributions', newStory );
+  // the below line works but is hardcoded to just show the same story(exStory)
+  let newStory = exStory.content
+
+  console.log('newStory:', newStory);
+  res.render('contributions', { newStory } );
 });
 
 
@@ -94,10 +101,17 @@ app.get('/contributions', (req, res) => {
 // Need POST route for when a user creates a new story
 // Should refresh and see the new story listed
 
-app.post("/homepage", (req, res) => {
-  const newStory = req.body.story;
+app.post('/new', (req, res) => {
+  let newStory = { content: req.body.story };
   // console.log('newStory:', newStory);
-  res.render('index', { newStory });
+  storyDb[makeId()] = newStory;
+  res.redirect('/');
+});
+
+// added post route for when you make a contribution
+app.post('/contributions', (req, res) => {
+  let storyContribution = { content: req.body.contribution }
+  res.redirect('/');
 });
 
 app.listen(PORT, () => {
