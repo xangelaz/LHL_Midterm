@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Home Page</title>
+  <title>Weeb Creator</title>
 
   <meta charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -18,7 +18,19 @@
 </head>
 
 <body>
+  <%- include('navbar') %>
   <h1>Have fun! 🥔</h1>
+  <p>
+    <% for (i in storyDb) {%>
+      <%= storyDb[i].title %>
+      <br>
+      <%= storyDb[i].content %>
+      <br>
+      Number of contributions: 3
+      <br>
+      <button onclick="location.href = 'contributions';" type="button" value="redirect" class="btn btn-primary" id="contribute-button">Add Contribution</button>
+    <%}%>
+  <p>
 </body>
 
 </html>
