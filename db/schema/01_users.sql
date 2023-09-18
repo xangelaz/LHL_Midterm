@@ -1,7 +1,35 @@
 -- Drop and recreate Users table (Example)
+CREATE DATABASE lhl_midterm;
+\c lhl_midterm
 
 DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS stories CASCADE;
+DROP TABLE IF EXISTS contributions CASCADE;
+
 CREATE TABLE users (
   id SERIAL PRIMARY KEY NOT NULL,
-  name VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE stories (
+  id SERIAL PRIMARY KEY NOT NULL,
+  creator_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+
+  title VARCHAR(255) NOT NULL,
+  contents TEXT NOT NULL,
+  date_created DATE NOT NULL,
+
+  complete BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+CREATE TABLE contributions (
+  id SERIAL PRIMARY KEY NOT NULL,
+  contents TEXT NOT NULL,
+  date_created DATE NOT NULL,
+  upvotes INTEGER NOT NULL DEFAULT 0,
+  accepted BOOLEAN NOT NULL DEFAULT FALSE,
+  story_id INTEGER REFERENCES stories(id) ON DELETE CASCADE,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE
 );
