@@ -68,6 +68,7 @@ function makeId() { return id++ }
 const exStory = {
   title: 'Example Story',
   content: 'Mary had a little lamb',
+  contribution: 'lalala',
   creatorId: 0,
 };
 
@@ -90,11 +91,11 @@ app.get('/my_stories', (req, res) => {
 app.get('/contributions', (req, res) => {
   // the below line works but is hardcoded to just show the same story(exStory)
   let newStory = exStory.content
+  let storyContribution = exStory.contribution
 
-  console.log('newStory:', newStory);
-  res.render('contributions', { newStory } );
+  // console.log('newStory:', newStory);
+  res.render('contributions', {newStory, storyContribution});
 });
-
 
 // POST ROUTES
 
@@ -110,8 +111,10 @@ app.post('/new', (req, res) => {
 
 // added post route for when you make a contribution
 app.post('/contributions', (req, res) => {
-  let storyContribution = { content: req.body.contribution }
-  res.redirect('/');
+  const contribution = req.body.contribution;
+  exStory.contribution  = contribution;
+  const newStory = exStory.content;
+  res.render('contributions', { newStory, storyContribution: exStory.contribution});
 });
 
 app.listen(PORT, () => {
