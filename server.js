@@ -1,16 +1,6 @@
 // load .env data into process.env
 require('dotenv').config();
 
-// Connect to PostgreSQL
-// const { Pool } = require('pg'); might delete this later 
-
-// const pool = new Pool({
-//   user: 'vagrant',
-//   password: '123',
-//   host: 'localhost',
-//   database: 'lhl_midterm'
-// });
-
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
@@ -41,6 +31,7 @@ app.use(express.static('public'));
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
 const usersRoutes = require('./routes/users');
+const db = require('./db/connection');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -76,6 +67,9 @@ storyDb[makeId()] = exStory;
 
 // GET ROUTES
 app.get('/', (req, res) => {
+  db.query(`select * from users;`)
+  .then((stuff) => console.log("nice", stuff))
+  .catch((err) => console.log("error", err));
   res.render('index', { storyDb })
 });
 
