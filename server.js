@@ -2,14 +2,14 @@
 require('dotenv').config();
 
 // Connect to PostgreSQL
-const { Pool } = require('pg');
+// const { Pool } = require('pg'); might delete this later 
 
-const pool = new Pool({
-  user: 'vagrant',
-  password: '123',
-  host: 'localhost',
-  database: 'lhl_midterm'
-});
+// const pool = new Pool({
+//   user: 'vagrant',
+//   password: '123',
+//   host: 'localhost',
+//   database: 'lhl_midterm'
+// });
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');

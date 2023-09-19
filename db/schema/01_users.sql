@@ -1,6 +1,6 @@
 -- Drop and recreate Users table (Example)
-CREATE DATABASE lhl_midterm;
-\c lhl_midterm
+-- CREATE DATABASE lhl_midterm;
+-- \c lhl_midterm
 
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS stories CASCADE;
