@@ -14,7 +14,6 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-
     <title>Story Contributions</title>
   </head>
 
@@ -33,19 +32,32 @@
           <%= storyContribution %>
         </li>
       </ul>
-      <form class="form-inline" action="/contributions" method="POST">
-        <div class="form-group mb-2">
-          <label for="contribution">Enter a Contribution for the Story:</label>
-          <input
-            class="form-control"
-            type="text"
-            name="contribution"
-            style="width: 300px; margin: 1em"
-          />
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </form>
-    </main>
+    <p id="numOfVotes">0 Votes</p>
+    <button onclick="upVote()">Upvote</button>
+    <form class="form-inline" action="/contributions" method="POST">
+      <div class="form-group mb-2">
+        <label for="contribution">Enter a Contribution for the Story:</label>
+        <input
+        class="form-control"
+        type="text"
+        name="contribution"
+        style="width: 300px; margin: 1em"
+        />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+     </main>
+    <!--Upvote Script-->
+    <script>
+      let votes = 0;
+      function upVote() {
+        votes++;
+        if (votes === 1) {
+          document.getElementById('numOfVotes').innerText = votes + ' Vote';
+        } else
+        document.getElementById('numOfVotes').innerText = votes + ' Votes';
+      }
+      </script>
     <!-- Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
