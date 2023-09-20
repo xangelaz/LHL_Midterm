@@ -6,13 +6,12 @@
  */
 
 const express = require('express');
-const { getUser } = require('../db/queries/users');
+const { getUserById } = require('../db/queries/users');
 const router  = express.Router();
 
 router.get('/:id', (req, res) => {
   const userId = req.params.id;
-  getUser(userId).then((user) => {
-    console.log("routes", user)
+  getUserById(userId).then((user) => {
     res.render('users', { user })
   })
 });

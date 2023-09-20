@@ -19,8 +19,8 @@ const getAllStories = function() {
 
 // Get all stories for a single user (who is the author).
 // to be used when clicking "My Stories"
-const getUserStoriesWithId = function(user_id) {
-  return query(`
+const getStoriesByUserId = function(user_id) {
+  return db.query(`
     SELECT stories.*
     FROM stories
     JOIN users ON stories.creator_id = users.id
@@ -29,7 +29,7 @@ const getUserStoriesWithId = function(user_id) {
     ORDER BY stories.created_date;
     `, [user_id])
     .then((result) => {
-      console.log('getUserStoriesWithId', result.rows);
+      console.log('getStoriesByUserId', result.rows);
       return result.rows;
     })
     .catch((err) => {
@@ -37,8 +37,23 @@ const getUserStoriesWithId = function(user_id) {
     });
 };
 
+const getStory = function(user_id) {
+  return db.query(`
+    SELECT *
+    FROM stories
+    WHERE id = $1;
+    `, [user_id])
+    .then((result) => {
+      console.log('getStoriesByUserId', result.rows);
+      return result.rows[0];
+    })
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+
 const addStory = function(story) {
-  return query(`
+  return db.query(`
     INSERT INTO stories (creator_id, title, contents, date_created, complete)
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
@@ -60,7 +75,8 @@ const addStory = function(story) {
 
 module.exports = {
   getAllStories,
-  getUserStoriesWithId,
+  getStoriesByUserId,
+  getStory,
   addStory
 };
 

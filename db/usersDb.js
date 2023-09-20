@@ -3,7 +3,7 @@ const { query } = require('./connection');
 
 // Get a single user from the database given their id.
 // not sure if this function is needed..?
-const getUserWithId = function(id) {
+const getUserById = function(id) {
   return query(`
     SELECT *
     FROM users
@@ -15,7 +15,7 @@ const getUserWithId = function(id) {
         return undefined;
         // else resolves with a user object with the given user id
       }
-      console.log('getUserWithId', result.rows[0]);
+      console.log('getUserById', result.rows[0]);
       return result.rows[0];
     })
     .catch((err) => {
@@ -24,5 +24,5 @@ const getUserWithId = function(id) {
 };
 
 module.exports = {
-  getUserWithId
+  getUserById
 };

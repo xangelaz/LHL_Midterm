@@ -3,8 +3,9 @@ require('dotenv').config();
 
 // load query functions
 // const { getAllContributions, addContribution } = require('./db/contributionsDb');
-const { getAllStories } = require('./db/storiesDb');
-// const { getUserWithId } = require('./db/usersDb');
+const { getAllStories } = require('./db/queries/stories');
+
+// const { getUserById } = require('./db/usersDb');
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -45,8 +46,8 @@ const usersRoutes = require('./routes/usersRoutes');
 // Note: Endpoints that return data (eg. JSON) usually start with `/api`
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
-app.use('/users', usersRoutes);
-app.use('/', storiesRoutes);
+app.use('/user', usersRoutes);
+app.use('/story', storiesRoutes);
 
 // app.use('/stories', storiesRoutes);
 
@@ -83,7 +84,9 @@ app.use('/', storiesRoutes);
 // GET ROUTES
 app.get('/', (req, res) => {
   // const allStories = getAllStories();
-  res.render('index')
+  getAllStories().then((allStories) => {
+    res.render('index', { allStories })
+  })
 });
 
 app.get('/new', (req, res) => {

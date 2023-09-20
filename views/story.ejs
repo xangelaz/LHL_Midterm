@@ -25,13 +25,13 @@
       <h3>Story Contributions</h3>
       <tr>
         <td>
-          <%= newStory %>
+          <%= story.title %>
+          <br>
+          <%= story.contents %>
         </td>
       </tr>
       <ul>
-        <li>
-          <%= storyContribution %>
-        </li>
+
       </ul>
       <form class="form-inline" action="/contributions" method="POST">
         <div class="form-group mb-2">
