@@ -4,6 +4,7 @@
 
 const express = require('express');
 const { getAllStories, getStoriesByUserId, getStory } = require('../db/queries/stories');
+const { getAllContributions } = require('../db/queries/contributions');
 const router  = express.Router();
 
 // Get all stories.
@@ -28,7 +29,10 @@ router.get('/my_stories/:id', (req, res) => {
 router.get('/:id', (req, res) => {
   const storyId = req.params.id;
   getStory(storyId).then((story) => {
-    res.render('story', { story })
+    getAllContributions(storyId).then((contributions) => {
+      console.log('contributions', contributions)
+      res.render('story', { story, contributions })
+    })
   })
 });
 
