@@ -21,10 +21,10 @@
   <%- include('navbar') %>
   <h1>Have fun! 🥔</h1>
   <p>
-    <% for (i in storyDb) {%>
-      <%= storyDb[i].title %>
+    <% for (i in allStories) {%>
+      <%= allStories[i].title %>
       <br>
-      <%= storyDb[i].content %>
+      <%= allStories[i].contents %>
       <br>
       Number of contributions: 3
       <br>

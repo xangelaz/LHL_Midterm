@@ -1,13 +1,14 @@
 const db = require('./connection')
+const { query } = require('./connection');
 
 // Get a single user from the database given their id.
 // not sure if this function is needed..?
 const getUserWithId = function(id) {
-  return db(`
+  return query(`
     SELECT *
     FROM users
-    WHERE users.id = ${id}
-    `)
+    WHERE users.id = $1
+    `, [id])
     .then((result) => {
       // if no user with the given id is present, returns undefined
       if (!rows.length) {

@@ -1,6 +1,11 @@
 // load .env data into process.env
 require('dotenv').config();
 
+// load query functions
+// const { getAllContributions, addContribution } = require('./db/contributionsDb');
+const { getAllStories } = require('./db/storiesDb');
+// const { getUserWithId } = require('./db/usersDb');
+
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
@@ -30,8 +35,10 @@ app.use(express.static('public'));
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
-const usersRoutes = require('./routes/users');
-const db = require('./db/connection');
+// const contributionsRoutes = require('./routes/contributions');
+const storiesRoutes = require('./routes/storiesRoutes');
+const usersRoutes = require('./routes/usersRoutes');
+// const db = require('./db/connection');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
@@ -39,6 +46,10 @@ const db = require('./db/connection');
 app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
+app.use('/', storiesRoutes);
+
+// app.use('/stories', storiesRoutes);
+
 // Note: mount other resources here, using the same pattern above
 
 // Home page
@@ -49,28 +60,30 @@ app.use('/users', usersRoutes);
 // newStory retrieves the text box - showing in console.log
 // Need newStory to render on the homepage after "Create" is clicked
 
-// storyDb is temporary database until we connect the real one
-const storyDb = {}
-let id = 0
-// makeId function just increases the id by +1 each time
-function makeId() { return id++ }
+// commenting out the temporary database below
+// ----------------------------------------------->
+// // storyDb is temporary database until we connect the real one
+// const storyDb = {}
+// let id = 0
+// // makeId function just increases the id by +1 each time
+// function makeId() { return id++ }
 
-// example story that is in the storyDb
-const exStory = {
-  title: 'Example Story',
-  content: 'Mary had a little lamb',
-  contribution: 'lalala',
-  creatorId: 0,
-};
+// // example story that is in the storyDb
+// const exStory = {
+//   title: 'Example Story',
+//   content: 'Mary had a little lamb',
+//   contribution: 'lalala',
+//   creatorId: 0,
+// };
 
-storyDb[makeId()] = exStory;
+// storyDb[makeId()] = exStory;
+
+// <--------------------------------------------------
 
 // GET ROUTES
 app.get('/', (req, res) => {
-  db.query(`select * from users;`)
-  .then((stuff) => console.log("nice", stuff))
-  .catch((err) => console.log("error", err));
-  res.render('index', { storyDb })
+  // const allStories = getAllStories();
+  res.render('index')
 });
 
 app.get('/new', (req, res) => {

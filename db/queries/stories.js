@@ -1,9 +1,9 @@
-const { query } = require('./connection');
+const db = require('../connection');
 
 // Get all stories.
 // to be used when loading the home page.
 const getAllStories = function() {
-  return query(`
+  return db.query(`
     SELECT title, contents
     FROM stories
     ORDER BY stories.date_created
@@ -63,3 +63,4 @@ module.exports = {
   getUserStoriesWithId,
   addStory
 };
+

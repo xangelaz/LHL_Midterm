@@ -14,4 +14,11 @@ const db = new Pool(dbParams);
 
 db.connect();
 
+// create and export query to be used in database.js
+// const query = (text, params, callback) => {
+//   return pool.query(text, params, callback);
+// };
+
+// module.exports = { query };
+
 module.exports = db;

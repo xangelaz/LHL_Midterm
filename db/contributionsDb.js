@@ -1,9 +1,10 @@
 const db = require('./connection')
+const { query } = require('./connection');
 
 // Get all contributions for a single story.
 // to be used when clicking on each story.
 const getAllContributions = function(story_id) {
-  return db(`
+  return query(`
     SELECT contributions.*
     FROM contributions
     JOIN stories ON contributions.story_id = stories.id
@@ -22,7 +23,7 @@ const getAllContributions = function(story_id) {
 
 // Add a contribution to the database.
 const addContribution = function(contribution) {
-  return db(`
+  return query(`
     INSERT INTO contributions (contents, date_created, upvotes, accepted, story_id, user_id)
     VALUES ($1, $2, $3, $4, $5, $6)
     RETURNING *;
