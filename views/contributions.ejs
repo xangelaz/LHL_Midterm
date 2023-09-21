@@ -1,92 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      />
 
-    <!-- Bootstrap CSS -->
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-      crossorigin="anonymous"
-    />
-    <title>Story Contributions</title>
-  </head>
+      <!-- Bootstrap CSS -->
+      <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous"
+      />
+      <title>Story Contributions</title>
+    </head>
 
-  <body>
-    <%- include('navbar') %>
+    <body>
+      <%- include('navbar') %>
 
-    <main style="margin: 1em;">
-      <h3>Story Contributions</h3>
-      <tr>
-        <td>
-          <%= newStory %>
-        </td>
-      </tr>
-      <button id="completeStory">Complete Story</button>
-      <ul>
-        <li>
-          <%= storyContribution %>
-        </li>
-      </ul>
-    <p id="numOfVotes">0 Votes</p>
-    <button id="upVote" onclick="upVote()">Upvote</button>
-    <form class="form-inline" action="/contributions" method="POST">
-      <div class="form-group mb-2">
-        <label for="contribution">Enter a Contribution for the Story:</label>
-        <input
-        id="contribution"
-        class="form-control"
-        type="text"
-        name="contribution"
-        style="width: 300px; margin: 1em"
-        />
-        <button id="submit" type="submit" class="btn btn-primary">Submit</button>
-      </div>
-    </form>
-     </main>
-     <!-- Complete Story Button Script -->
-     <script>
-      document.getElementById('completeStory').addEventListener('click', () => {
-        const contribution = document.getElementById('contribution');
-        const submit = document.getElementById('submit');
-        const upVote = document.getElementById('upVote');
+      <main style="margin: 1em;">
+        <h3>Story Contributions</h3>
+        <tr>
+          <td id="storyCreated">
+            <%= newStory %>
+            <button id="completeStory">Complete Story</button>
+          </td>
+        </tr>
+        <ul>
+          <li id="contributionList">
+            <%= storyContribution %>
+            <button id="acceptContribution">Add</button>
+          </li>
+        </ul>
+      <p id="numOfVotes">0 Votes</p>
+      <button id="upVote" onclick="upVote()">Upvote</button>
+      <form class="form-inline" action="/contributions" method="POST">
+        <div class="form-group mb-2">
+          <label for="contribution">Enter a Contribution for the Story:</label>
+          <input
+          id="contribution"
+          class="form-control"
+          type="text"
+          name="contribution"
+          style="width: 300px; margin: 1em"
+          />
+          <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+      </main>
+      <!-- Bootstrap JS -->
+      <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"
+      ></script>
+      <script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"
+      ></script>
+      <!-- Add Contribution Script -->
+      <script>
+        document.getElementById('acceptContribution').addEventListener('click', () => {
+          const contributionList = document.getElementById('contributionList');
+          const storyCreated = document.getElementById('storyCreated');
 
-        contribution.disabled = true;
-        submit.disabled = true;
-        upVote.disabled = true;
-      })
-     </script>
-    <!-- Upvote Script -->
-    <script>
-      let votes = 0;
-      function upVote() {
-        votes++;
-        if (votes === 1) {
-          document.getElementById('numOfVotes').innerText = votes + ' Vote';
-        } else
-        document.getElementById('numOfVotes').innerText = votes + ' Votes';
-      }
+          const newContribution = storyCreated.innerHTML;
+          const li = document.createElement('li');
+          li.textContent = newContribution;
+
+          storyCreated.innerHTML = storyCreated.innerHTML + ' ' + newContribution;
+
+          contributionList.removeChild(contributionList.firstElementChild);
+        })
       </script>
-    <!-- Bootstrap JS -->
-    <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+      <!-- Complete Story Button Script -->
+      <script>
+        document.getElementById('completeStory').addEventListener('click', () => {
+          const contribution = document.getElementById('contribution');
+          const submit = document.getElementById('submit');
+          const upVote = document.getElementById('upVote');
+          const completeStory = document.getElementById('completeStory');
+
+          contribution.disabled = true;
+          submit.disabled = true;
+          upVote.disabled = true;
+          completeStory.textContent = 'Story Completed';
+          completeStory.disabled = true;
+        });
+      </script>
+      <!-- Upvote Script -->
+      <script>
+        let votes = 0;
+        function upVote() {
+          votes++;
+          if (votes === 1) {
+            document.getElementById('numOfVotes').innerText = votes + ' Vote';
+          } else
+          document.getElementById('numOfVotes').innerText = votes + ' Votes';
+        }
+        </script>
+    </body>
+  </html>
