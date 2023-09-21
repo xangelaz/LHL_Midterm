@@ -22,17 +22,16 @@
 
       <main style="margin: 1em;">
         <h3>Story Contributions</h3>
-        <tr>
-          <td id="storyCreated">
-            <%= newStory %>
-          </td>
-        </tr>
+            <div id='storyCreated'>
+              <%= newStory %>
+            </div>
         <ul>
           <button id="completeStory">Complete Story</button>
           <li id="contributionList">
             <%= storyContribution %>
           </li>
-          <button id="acceptContribution">Add</button>
+            <button id="acceptContribution">Add</button>
+          </form>
         </ul>
       <p id="numOfVotes">0 Votes</p>
       <button id="upVote" onclick="upVote()">Upvote</button>
@@ -76,7 +75,10 @@
           acceptContribution.addEventListener('click', () => {
             const newContribution = `<%= newStory %>` + ' ' + contributionList.innerText;
             console.log(newContribution);
+            document.getElementById('storyCreated').textContent = newContribution;
+            document.getElementById('contributionList').textContent = '';
           });
+
         });
       </script>
       <!-- Complete Story Button Script -->

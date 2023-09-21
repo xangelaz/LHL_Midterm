@@ -92,7 +92,6 @@ app.get('/contributions', (req, res) => {
   // the below line works but is hardcoded to just show the same story(exStory)
   let newStory = exStory.content
   let storyContribution = exStory.contribution
-
   // console.log('newStory:', newStory);
   res.render('contributions', {newStory, storyContribution});
 });
