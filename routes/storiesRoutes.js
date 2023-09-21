@@ -23,7 +23,7 @@ router.get('/:id', (req, res) => {
   getStory(storyId).then((story) => {
     getAllContributions(storyId).then((contributions) => {
       console.log('contributions', contributions)
-      res.render('story', { story, contributions })
+      res.render('contributions', { story, contributions })
     })
   })
 });
