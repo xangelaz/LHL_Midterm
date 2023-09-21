@@ -25,14 +25,14 @@
         <tr>
           <td id="storyCreated">
             <%= newStory %>
-            <button id="completeStory">Complete Story</button>
           </td>
         </tr>
         <ul>
+          <button id="completeStory">Complete Story</button>
           <li id="contributionList">
             <%= storyContribution %>
-            <button id="acceptContribution">Add</button>
           </li>
+          <button id="acceptContribution">Add</button>
         </ul>
       <p id="numOfVotes">0 Votes</p>
       <button id="upVote" onclick="upVote()">Upvote</button>
@@ -68,18 +68,16 @@
       ></script>
       <!-- Add Contribution Script -->
       <script>
-        document.getElementById('acceptContribution').addEventListener('click', () => {
+        document.addEventListener('DOMContentLoaded', () => {
+          const acceptContribution = document.getElementById('acceptContribution');
           const contributionList = document.getElementById('contributionList');
-          const storyCreated = document.getElementById('storyCreated');
+          let storyCreated = document.getElementById('storyCreated');
 
-          const newContribution = storyCreated.innerHTML;
-          const li = document.createElement('li');
-          li.textContent = newContribution;
-
-          storyCreated.innerHTML = storyCreated.innerHTML + ' ' + newContribution;
-
-          contributionList.removeChild(contributionList.firstElementChild);
-        })
+          acceptContribution.addEventListener('click', () => {
+            const newContribution = `<%= newStory %>` + ' ' + contributionList.innerText;
+            console.log(newContribution);
+          });
+        });
       </script>
       <!-- Complete Story Button Script -->
       <script>
