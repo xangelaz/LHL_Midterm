@@ -19,7 +19,7 @@ CREATE TABLE stories (
 
   title VARCHAR(255) NOT NULL,
   contents TEXT NOT NULL,
-  date_created DATE NOT NULL,
+  date_created DATE DEFAULT now(),
 
   complete BOOLEAN NOT NULL DEFAULT FALSE
 );

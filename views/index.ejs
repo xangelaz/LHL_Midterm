@@ -24,7 +24,7 @@
     <% console.log(allStories) %>
     <% for (let id in allStories) {%>
       <a href="/story/<%= allStories[id].id %>">
-      <%= allStories[id].title %>
+      Title: <%= allStories[id].title %>
     </a>
       <br>
       <%= allStories[id].contents %>

@@ -37,6 +37,7 @@ const getStoriesByUserId = function(user_id) {
     });
 };
 
+// get all stories for each user.
 const getStory = function(user_id) {
   return db.query(`
     SELECT *
@@ -52,17 +53,17 @@ const getStory = function(user_id) {
     });
 };
 
+// Add story to the database.
 const addStory = function(story) {
+  console.log('story', story)
   return db.query(`
-    INSERT INTO stories (creator_id, title, contents, date_created, complete)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO stories (creator_id, title, contents)
+    VALUES ($1, $2, $3)
     RETURNING *;
   `, [
-    story.creator_id,
-    story.title,
-    story.contents,
-    story.date_created,
-    story.complete
+    1,
+    'Story Title',
+    story.contents
   ])
     .then((result) => {
       console.log('addStory', result.rows[0]);

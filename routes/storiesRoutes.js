@@ -3,11 +3,9 @@
  */
 
 const express = require('express');
-const { getAllStories, getStoriesByUserId, getStory } = require('../db/queries/stories');
-const { getAllContributions, addContribution } = require('../db/queries/contributions');
-const db = require('../db/connection');
+const { getAllStories, getStoriesByUserId, getStory, addStory } = require('../db/queries/stories');
+const { getAllContributions } = require('../db/queries/contributions');
 const router  = express.Router();
-const database = require('../db/queries/contributions');
 
 
 // Get all stories.
@@ -15,16 +13,6 @@ const database = require('../db/queries/contributions');
 router.get('/', (req, res) => {
   getAllStories().then((allStories) => {
     res.render('index', { allStories })
-  })
-});
-
-// Not actually required - can revisit this if we have time
-// get all stories for a single user (who is the author).
-// to be used when clicking "My Stories"
-router.get('/my_stories/:id', (req, res) => {
-  const userId = req.params.id;
-  getStoriesByUserId(userId).then((userStories) => {
-    res.render('my_stories', { userStories })
   })
 });
 
@@ -37,6 +25,29 @@ router.get('/:id', (req, res) => {
       console.log('contributions', contributions)
       res.render('story', { story, contributions })
     })
+  })
+});
+
+// Adds a new story to database and redirects to home page.
+router.post('/', (req, res) => {
+  const contents = req.body.story;
+  addStory({contents})
+    .then((story) => {
+      res.redirect('/')
+    })
+    .catch((e) => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
+// Not actually required - can revisit this if we have time
+// get all stories for a single user (who is the author).
+// to be used when clicking "My Stories"
+router.get('/my_stories/:id', (req, res) => {
+  const userId = req.params.id;
+  getStoriesByUserId(userId).then((userStories) => {
+    res.render('my_stories', { userStories })
   })
 });
 

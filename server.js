@@ -113,12 +113,12 @@ app.get('/my_stories', (req, res) => {
 // Need POST route for when a user creates a new story
 // Should refresh and see the new story listed
 
-app.post('/new', (req, res) => {
-  let newStory = { content: req.body.story };
-  // console.log('newStory:', newStory);
-  storyDb[makeId()] = newStory;
-  res.redirect('/');
-});
+// app.post('/new', (req, res) => {
+//   let newStory = { content: req.body.story };
+//   // console.log('newStory:', newStory);
+//   storyDb[makeId()] = newStory;
+//   res.redirect('/');
+// });
 
 // // added post route for when you make a contribution
 // app.post('/contributions', (req, res) => {
