@@ -1,6 +1,6 @@
 -- Drop and recreate Users table (Example)
--- CREATE DATABASE lhl_midterm;
--- \c lhl_midterm
+CREATE DATABASE midterm;
+\c midterm
 
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS stories CASCADE;
@@ -27,7 +27,7 @@ CREATE TABLE stories (
 CREATE TABLE contributions (
   id SERIAL PRIMARY KEY NOT NULL,
   contents TEXT NOT NULL,
-  date_created DATE NOT NULL,
+  date_created DATE DEFAULT now(),
   upvotes INTEGER NOT NULL DEFAULT 0,
   accepted BOOLEAN NOT NULL DEFAULT FALSE,
   story_id INTEGER REFERENCES stories(id) ON DELETE CASCADE,

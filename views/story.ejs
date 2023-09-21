@@ -30,13 +30,15 @@
           <%= story.contents %>
         </td>
       </tr>
-        <td>
-          <%= contributions[0].contents %>
-        </td>
-      <ul>
-
+        <ul>
+          <% for (let contribution in contributions) {%>
+            <li>
+              <%= contributions[contribution].contents %>
+            </li>
+        <%}%>
       </ul>
-      <form class="form-inline" action="/contributions" method="POST">
+
+      <form class="form-inline" action="/contributions/story/<%= story.id %>" method="POST">
         <div class="form-group mb-2">
           <label for="contribution">Enter a Contribution for the Story:</label>
           <input

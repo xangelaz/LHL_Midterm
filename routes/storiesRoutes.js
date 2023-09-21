@@ -4,8 +4,11 @@
 
 const express = require('express');
 const { getAllStories, getStoriesByUserId, getStory } = require('../db/queries/stories');
-const { getAllContributions } = require('../db/queries/contributions');
+const { getAllContributions, addContribution } = require('../db/queries/contributions');
+const db = require('../db/connection');
 const router  = express.Router();
+const database = require('../db/queries/contributions');
+
 
 // Get all stories.
 // to be used when loading the home page.
@@ -15,7 +18,8 @@ router.get('/', (req, res) => {
   })
 });
 
-// Get all stories for a single user (who is the author).
+// Not actually required - can revisit this if we have time
+// get all stories for a single user (who is the author).
 // to be used when clicking "My Stories"
 router.get('/my_stories/:id', (req, res) => {
   const userId = req.params.id;
@@ -24,7 +28,7 @@ router.get('/my_stories/:id', (req, res) => {
   })
 });
 
-// .
+// Gets story and all contributions for that story.
 // to be used when clicking on a story. Redirects to story page.
 router.get('/:id', (req, res) => {
   const storyId = req.params.id;

@@ -36,7 +36,7 @@ app.use(express.static('public'));
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const widgetApiRoutes = require('./routes/widgets-api');
-// const contributionsRoutes = require('./routes/contributions');
+const contributionsRoutes = require('./routes/contributionsRoutes');
 const storiesRoutes = require('./routes/storiesRoutes');
 const usersRoutes = require('./routes/usersRoutes');
 // const db = require('./db/connection');
@@ -48,6 +48,7 @@ app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/user', usersRoutes);
 app.use('/story', storiesRoutes);
+app.use('/contributions', contributionsRoutes)
 
 // app.use('/stories', storiesRoutes);
 
@@ -98,14 +99,14 @@ app.get('/my_stories', (req, res) => {
   res.render('my_stories', { newStory });
 });
 
-app.get('/contributions', (req, res) => {
-  // the below line works but is hardcoded to just show the same story(exStory)
-  let newStory = exStory.content
-  let storyContribution = exStory.contribution
+// app.get('/contributions', (req, res) => {
+//   // the below line works but is hardcoded to just show the same story(exStory)
+//   let newStory = exStory.content
+//   let storyContribution = exStory.contribution
 
-  // console.log('newStory:', newStory);
-  res.render('contributions', {newStory, storyContribution});
-});
+//   // console.log('newStory:', newStory);
+//   res.render('contributions', {newStory, storyContribution});
+// });
 
 // POST ROUTES
 
@@ -119,13 +120,13 @@ app.post('/new', (req, res) => {
   res.redirect('/');
 });
 
-// added post route for when you make a contribution
-app.post('/contributions', (req, res) => {
-  const contribution = req.body.contribution;
-  exStory.contribution  = contribution;
-  const newStory = exStory.content;
-  res.render('contributions', { newStory, storyContribution: exStory.contribution});
-});
+// // added post route for when you make a contribution
+// app.post('/contributions', (req, res) => {
+//   const contribution = req.body.contribution;
+//   exStory.contribution  = contribution;
+//   const newStory = exStory.content;
+//   res.render('contributions', { newStory, storyContribution: exStory.contribution});
+// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

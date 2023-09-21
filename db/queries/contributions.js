@@ -21,23 +21,22 @@ const getAllContributions = function(story_id) {
 
 // Add a contribution to the database.
 const addContribution = function(contribution) {
+  console.log('contribution', contribution)
   return db.query(`
-    INSERT INTO contributions (contents, date_created, upvotes, accepted, story_id, user_id)
-    VALUES ($1, $2, $3, $4, $5, $6)
+    INSERT INTO contributions (contents, story_id, user_id)
+    VALUES ($1, $2, $3)
     RETURNING *;
   `, [
     contribution.contents,
-    contribution.date_created,
-    contribution.upvotes,
-    contribution.accepted,
-    contribution.story_id,
-    contribution.user_id
-  ])
+    contribution.storyId,
+    1
+    ])
     .then((result) => {
       console.log('addContribution', result.rows[0]);
       return result.rows[0];
     })
     .catch((err) => {
+      console.log(err);
       console.log(err.message);
     });
 };

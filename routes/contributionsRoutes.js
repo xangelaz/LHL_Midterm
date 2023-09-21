@@ -3,14 +3,21 @@
  */
 
 const express = require('express');
-const { getAllContributions, addContribution } = require('../db/queries/contributions');
+const { addContribution } = require('../db/queries/contributions');
 const router  = express.Router();
 
-// to be used when adding a contribution. Loads on the page and gets added to database.
-// router.get('/:id', (req, res) => {
-//   const storyId = req.params.id;
-//   getAllContributions(storyId).then((contributions) => {
-//     res.render('story', { contributions })
-//   })
-// });
+router.post('/story/:id', (req, res) => {
+  const contents = req.body.contribution;
+  const storyId = req.params.id;
+  console.log('req.body', req.body)
+  addContribution({contents, storyId})
+    .then((contribution) => {
+      res.redirect(`/story/${storyId}`)
+    })
+    .catch((e) => {
+      console.error(e);
+      res.send(e);
+    });
+});
 
+module.exports = router;

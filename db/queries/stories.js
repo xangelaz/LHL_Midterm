@@ -4,7 +4,7 @@ const db = require('../connection');
 // to be used when loading the home page.
 const getAllStories = function() {
   return db.query(`
-    SELECT title, contents
+    SELECT *
     FROM stories
     ORDER BY stories.date_created
     `)
