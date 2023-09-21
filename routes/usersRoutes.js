@@ -6,10 +6,14 @@
  */
 
 const express = require('express');
+const { getUserById } = require('../db/queries/users');
 const router  = express.Router();
 
-router.get('/', (req, res) => {
-  res.render('users');
-}); 
+router.get('/:id', (req, res) => {
+  const userId = req.params.id;
+  getUserById(userId).then((user) => {
+    res.render('users', { user })
+  })
+});
 
 module.exports = router;
