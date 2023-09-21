@@ -24,14 +24,33 @@
       <h3>Story Contributions</h3>
       <tr>
         <td>
-          <%= newStory %>
+          Story Title: <%= story.title %>
+          <br>
+          <%= story.contents %>
         </td>
       </tr>
-      <ul>
-        <li>
-          <%= storyContribution %>
-        </li>
+        <ul>
+          <% for (let contribution in contributions) {%>
+            <li>
+              <%= contributions[contribution].contents %>
+            </li>
+        <%}%>
       </ul>
+
+      <form class="form-inline" action="/contributions/story/<%= story.id %>" method="POST">
+        <div class="form-group mb-2">
+          <label for="contribution">Enter a Contribution for the Story:</label>
+          <input
+            class="form-control"
+            type="text"
+            name="contribution"
+            style="width: 300px; margin: 1em"
+          />
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </main>
+
     <p id="numOfVotes">0 Votes</p>
     <button onclick="upVote()">Upvote</button>
     <form class="form-inline" action="/contributions" method="POST">
@@ -58,6 +77,7 @@
         document.getElementById('numOfVotes').innerText = votes + ' Votes';
       }
       </script>
+
     <!-- Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
