@@ -58,33 +58,8 @@ app.use('/contributions', contributionsRoutes)
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 
-
-// newStory retrieves the text box - showing in console.log
-// Need newStory to render on the homepage after "Create" is clicked
-
-// commenting out the temporary database below
-// ----------------------------------------------->
-// // storyDb is temporary database until we connect the real one
-// const storyDb = {}
-// let id = 0
-// // makeId function just increases the id by +1 each time
-// function makeId() { return id++ }
-
-// // example story that is in the storyDb
-// const exStory = {
-//   title: 'Example Story',
-//   content: 'Mary had a little lamb',
-//   contribution: 'lalala',
-//   creatorId: 0,
-// };
-
-// storyDb[makeId()] = exStory;
-
-// <--------------------------------------------------
-
 // GET ROUTES
 app.get('/', (req, res) => {
-  // const allStories = getAllStories();
   getAllStories().then((allStories) => {
     res.render('index', { allStories })
   })
@@ -98,35 +73,6 @@ app.get('/my_stories', (req, res) => {
   let newStory = exStory.content
   res.render('my_stories', { newStory });
 });
-
-// app.get('/contributions', (req, res) => {
-//   // the below line works but is hardcoded to just show the same story(exStory)
-//   let newStory = exStory.content
-//   let storyContribution = exStory.contribution
-
-//   // console.log('newStory:', newStory);
-//   res.render('contributions', {newStory, storyContribution});
-// });
-
-// POST ROUTES
-
-// Need POST route for when a user creates a new story
-// Should refresh and see the new story listed
-
-// app.post('/new', (req, res) => {
-//   let newStory = { content: req.body.story };
-//   // console.log('newStory:', newStory);
-//   storyDb[makeId()] = newStory;
-//   res.redirect('/');
-// });
-
-// // added post route for when you make a contribution
-// app.post('/contributions', (req, res) => {
-//   const contribution = req.body.contribution;
-//   exStory.contribution  = contribution;
-//   const newStory = exStory.content;
-//   res.render('contributions', { newStory, storyContribution: exStory.contribution});
-// });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
