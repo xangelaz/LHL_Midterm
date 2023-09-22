@@ -79,7 +79,7 @@ const storyComplete = function(status) {
   UPDATE stories
   SET complete = TRUE
   WHERE $1
-  `, [])
+  `, [status])
 }
 
 module.exports = {

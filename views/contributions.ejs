@@ -31,7 +31,8 @@
         </td>
       </tr>
       <ul>
-        <button id="completeStory">Complete story</button>
+        <button id="completeStory" action="/story/<%= story.id%>/status" method="post">
+          Complete story</button>
         <% for (let idx in contributions) {%>
           <li>
             <div id="contributionList">
@@ -112,14 +113,14 @@
     </script>
     <!--Upvote Script-->
     <script>
-      function upVote(buh) {
-        let votes = Number(document.getElementsByClassName('numOfVotes')[buh].innerText.split(' ')[0]);
+      function upVote(vote) {
+        let votes = Number(document.getElementsByClassName('numOfVotes')[vote].innerText.split(' ')[0]);
         votes++;
 
         if (votes === 1) {
-          document.getElementsByClassName('numOfVotes')[buh].innerText = votes + ' Vote';
+          document.getElementsByClassName('numOfVotes')[vote].innerText = votes + ' Vote';
         } else
-        document.getElementsByClassName('numOfVotes')[buh].innerText = votes + ' Votes';
+        document.getElementsByClassName('numOfVotes')[vote].innerText = votes + ' Votes';
       }
       </script>
   </body>
