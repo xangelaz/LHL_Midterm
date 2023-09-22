@@ -1,0 +1,19 @@
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100px;
+  width: 100vw;
+  background-color: #23252b;
+  color: #FFFFFF;
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+  position: fixed;
+  top: 0px;
+}
+
+h1 {
+  font-size: 700;
+  // font-size: 700;
+}

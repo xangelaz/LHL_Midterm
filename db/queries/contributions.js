@@ -8,7 +8,7 @@ const getAllContributions = function(story_id) {
     FROM contributions
     JOIN stories ON contributions.story_id = stories.id
     WHERE contributions.story_id = $1
-    ORDER BY contributions.date_created;
+    ORDER BY contributions.upvotes;
     `, [story_id])
     .then((result) => {
       console.log('getAllContributions', result.rows);
