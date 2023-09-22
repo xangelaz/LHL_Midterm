@@ -13,7 +13,7 @@ VALUES (98, 2, 'Attack on Titan', 'Eren Yeager is a boy who lives in the town of
 INSERT INTO stories (id, creator_id, title, contents, date_created, complete)
 VALUES (99, 3, 'Spy x Family', 'In order to maintain the state of peace between the rival nations of Westalis and Ostania, a Westalian agent code-named "Twilight" is tasked with spying on Donovan Desmond, leader of the National Unity Party within Ostania.', '2019-03-25', FALSE);
 INSERT INTO stories (id, creator_id, title, contents, date_created, complete)
-VALUES (100, 1, 'My Hero Academia', 'Izuku Midoriya is a young man who dreams of becoming a Hero despite being bullied by his childhood friend Katsuki Bakugo for lacking a Quirk. After an encounter with his idol, All Might, who is the worlds greatest hero, Izuku is chosen by All Might to inherit his Quirk "One For All"', '2023-03-25', FALSE);
+VALUES (100, 1, 'My Hero Academia', 'Izuku Midoriya is a young man who dreams of becoming a Hero despite being bullied by his childhood friend Katsuki Bakugo for lacking a Quirk. After an encounter with his idol, All Might, who is the worlds greatest hero, Izuku is chosen by All Might to inherit his Quirk One For All', '2023-03-25', FALSE);
 
 INSERT INTO contributions (id, contents, date_created, upvotes, accepted, story_id, user_id)
 VALUES (99, 'due to Desmond being notoriously reclusive, the only way Twilight can get close to him is to enroll a child in the same private school as Desmonds sons and pose as a fellow parent.', '2019-03-25', 1, FALSE, 99, 2);

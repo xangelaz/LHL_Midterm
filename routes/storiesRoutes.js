@@ -45,9 +45,6 @@ router.post('/:id/status', (req, res) => {
   const id = req.params.id;
   console.log('post for id/status', req.params.id)
   storyComplete(id)
-    .then(() => {
-      res.redirect('/:id')
-    })
     .catch((e) => {
       console.error(e);
       res.send(e);
