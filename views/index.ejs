@@ -31,8 +31,6 @@
       <br>
       Number of contributions: 3
       <br>
-
-      <br>
       Status:
       <% if (!allStories[id].complete) { %>
         In Progress
@@ -41,6 +39,8 @@
       <% } %>
       <br>
       <button onclick="location.href = '/story/<%= allStories[id].id %>'" type="button" value="redirect" class="btn btn-primary" id="contribute-button">Add Contribution</button>
+      <br>
+
       <br>
       <%}%>
   <p>

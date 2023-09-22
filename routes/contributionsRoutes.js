@@ -19,6 +19,7 @@ router.post('/story/:id', (req, res) => {
       res.send(e);
     });
 });
+
 router.post('/:id/upvote', (req, res) => {
   const id = req.params.id;
   upvoteContribution(id)

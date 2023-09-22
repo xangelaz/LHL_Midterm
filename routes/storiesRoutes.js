@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const { getAllStories, getStoriesByUserId, getStory, addStory } = require('../db/queries/stories');
+const { getAllStories, getStoriesByUserId, getStory, addStory, storyComplete } = require('../db/queries/stories');
 const { getAllContributions } = require('../db/queries/contributions');
 const router  = express.Router();
 
@@ -49,6 +49,15 @@ router.get('/my_stories/:id', (req, res) => {
   getStoriesByUserId(userId).then((userStories) => {
     res.render('my_stories', { userStories })
   })
+});
+
+router.post('/:id/status', (req, res) => {
+  const status = req.params.id;
+  storyComplete(status)
+    .catch((e) => {
+      console.error(e);
+      res.send(e);
+    });
 });
 
 module.exports = router;

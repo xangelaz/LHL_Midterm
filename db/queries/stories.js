@@ -74,10 +74,19 @@ const addStory = function(story) {
     });
 };
 
+const storyComplete = function(status) {
+  return db.query(`
+  UPDATE stories
+  SET complete = TRUE
+  WHERE $1
+  `, [])
+}
+
 module.exports = {
   getAllStories,
   getStoriesByUserId,
   getStory,
-  addStory
+  addStory,
+  storyComplete
 };
 
