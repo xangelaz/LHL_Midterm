@@ -4,7 +4,7 @@ const db = require('../connection');
 // to be used when clicking on each story.
 const getAllContributions = function(story_id) {
   return db.query(`
-    SELECT contributions.contents
+    SELECT contributions.*
     FROM contributions
     JOIN stories ON contributions.story_id = stories.id
     WHERE contributions.story_id = $1
@@ -41,7 +41,16 @@ const addContribution = function(contribution) {
     });
 };
 
+const upvoteContribution = function(id) {
+  return db.query(`
+  UPDATE contributions
+  SET upvotes = upvotes + 1
+  WHERE id = $1;
+  `, [id])
+}
+
 module.exports = {
   getAllContributions,
-  addContribution
+  addContribution,
+  upvoteContribution
 };

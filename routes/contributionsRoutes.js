@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const { addContribution } = require('../db/queries/contributions');
+const { addContribution, upvoteContribution } = require('../db/queries/contributions');
 const router  = express.Router();
 
 router.post('/story/:id', (req, res) => {
@@ -11,9 +11,17 @@ router.post('/story/:id', (req, res) => {
   const storyId = req.params.id;
   console.log('req.body', req.body)
   addContribution({contents, storyId})
-    .then((contribution) => {
+    .then(() => {
       res.redirect(`/story/${storyId}`)
     })
+    .catch((e) => {
+      console.error(e);
+      res.send(e);
+    });
+});
+router.post('/:id/upvote', (req, res) => {
+  const id = req.params.id;
+  upvoteContribution(id)
     .catch((e) => {
       console.error(e);
       res.send(e);
