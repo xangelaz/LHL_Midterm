@@ -19,42 +19,48 @@
 
     <body>
       <%- include('navbar') %>
-    <main style="margin: 1em;">
-      <h3>Story Contributions</h3>
-      <tr>
-        <td>
+      <main style="margin: 1em;">
+        <h3>Story Contributions</h3>
+        <tr>
+          <td>
           Story Title: <%= story.title %>
           <br>
-          <%= story.contents %>
+          <div id="storyContents">
+            <%= story.contents %>
+          </div>
         </td>
       </tr>
-        <ul>
-          <% for (let contribution in contributions) {%>
-            <li>
+      <ul>
+        <button id="completeStory">Complete story</button>
+        <% for (let contribution in contributions) {%>
+          <li>
+            <div id="contributionList">
               <%= contributions[contribution].contents %>
-            </li>
-        <%}%>
-      </ul>
+            </div>
+            <div>
+              <button id="acceptContribution">Add</button>
+            </div>
+            <p id="numOfVotes">0 Votes</p>
+            <button id="upVote" onclick="upVote()">Upvote</button>
+          </li>
+          <%}%>
+        </ul>
 
-      <form class="form-inline" action="/contributions/story/<%= story.id %>" method="POST">
-        <div class="form-group mb-2">
-          <label for="contribution">Enter a Contribution for the Story:</label>
-          <input
+        <form class="form-inline" action="/contributions/story/<%= story.id %>" method="POST">
+          <div class="form-group mb-2">
+            <label for="contribution">Enter a Contribution for the Story:</label>
+            <input
             class="form-control"
             type="text"
             name="contribution"
             style="width: 300px; margin: 1em"
-          />
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-      </form>
-    </main>
-
-    <p id="numOfVotes">0 Votes</p>
-    <button onclick="upVote()">Upvote</button>
-     </main>
-    <!-- Bootstrap JS -->
-    <script
+            />
+            <button id="submit" type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </main>
+  <!-- Bootstrap JS -->
+  <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
       crossorigin="anonymous"
@@ -70,47 +76,48 @@
       crossorigin="anonymous"
     ></script>
 
-      <!-- Add Contribution Script -->
-      <script>
-        document.addEventListener('DOMContentLoaded', () => {
-          const acceptContribution = document.getElementById('acceptContribution');
-          const contributionList = document.getElementById('contributionList');
-          let storyCreated = document.getElementById('storyCreated');
+  <!-- Add Contribution Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const acceptContribution = document.getElementById('acceptContribution');
+      const contributionList = document.getElementById('contributionList');
+      let storyCreated = document.getElementById('storyCreated');
 
-          acceptContribution.addEventListener('click', () => {
-            const newContribution = `<%= newStory %>` + ' ' + contributionList.innerText;
-            console.log(newContribution);
-            document.getElementById('storyCreated').textContent = newContribution;
-            document.getElementById('contributionList').textContent = '';
-          });
+      acceptContribution.addEventListener('click', () => {
+        const newContribution = `<%= story.contents %>` + ' ' + contributionList.innerText;
+        console.log(newContribution);
+        document.getElementById('storyContents').textContent = newContribution;
+        document.getElementById('contributionList').textContent = '';
+      });
 
-        });
+    });
+  </script>
+  <!-- Complete Story Button Script -->
+  <script>
+    document.getElementById('completeStory').addEventListener('click', () => {
+      const contribution = document.getElementById('contributionList');
+      const submit = document.getElementById('submit');
+      const upVote = document.getElementById('upVote');
+      const completeStory = document.getElementById('completeStory');
+      const acceptContribution = document.getElementById('acceptContribution');
+  contribution.disabled = true;
+  submit.disabled = true;
+  upVote.disabled = true;
+  completeStory.textContent = 'Story Completed';
+  completeStory.disabled = true;
+  acceptContribution.disabled = true;
+});
+    </script>
+    <!--Upvote Script-->
+    <script>
+      let votes = 0;
+      function upVote() {
+        votes++;
+        if (votes === 1) {
+          document.getElementById('numOfVotes').innerText = votes + ' Vote';
+        } else
+        document.getElementById('numOfVotes').innerText = votes + ' Votes';
+      }
       </script>
-      <!-- Complete Story Button Script -->
-      <script>
-        document.getElementById('completeStory').addEventListener('click', () => {
-          const contribution = document.getElementById('contribution');
-          const submit = document.getElementById('submit');
-          const upVote = document.getElementById('upVote');
-          const completeStory = document.getElementById('completeStory');
-
-          contribution.disabled = true;
-          submit.disabled = true;
-          upVote.disabled = true;
-          completeStory.textContent = 'Story Completed';
-          completeStory.disabled = true;
-        });
-      </script>
-      <!-- Upvote Script -->
-      <script>
-        let votes = 0;
-        function upVote() {
-          votes++;
-          if (votes === 1) {
-            document.getElementById('numOfVotes').innerText = votes + ' Vote';
-          } else
-          document.getElementById('numOfVotes').innerText = votes + ' Votes';
-        }
-        </script>
   </body>
 </html>
