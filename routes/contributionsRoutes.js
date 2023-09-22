@@ -23,6 +23,7 @@ router.post('/story/:id', (req, res) => {
 router.post('/:id/upvote', (req, res) => {
   const id = req.params.id;
   upvoteContribution(id)
+    .then(() => res.status(200))
     .catch((e) => {
       console.error(e);
       res.send(e);

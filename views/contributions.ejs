@@ -31,8 +31,10 @@
         </td>
       </tr>
       <ul>
-        <button id="completeStory" action="/story/<%= story.id%>/status" method="post">
-          Complete story</button>
+        <form class="completeStory" action="/story/<%= story.id%>/status" method="post">
+          <input type="submit" name="status" value="Complete Story" />
+        </form>
+
         <% for (let idx in contributions) {%>
           <li>
             <div id="contributionList">
@@ -42,9 +44,9 @@
               <button id="acceptContribution">Add</button>
             </div>
             <p class="numOfVotes"><%=contributions[idx].upvotes%> Votes</p>
-            <button class="upVote" onclick="upVote('<%= idx%>')" action="/contributions/<%= contributions[idx].id%>/upvote" method="post">
+            <form class="upVote" onclick="upVote('<%= idx%>')" action="/contributions/<%= contributions[idx].id%>/upvote" method="post">
               <input type="submit" name="storyId" value="Upvote" />
-            </button>
+            </form>
           </li>
           <%}%>
         </ul>
@@ -100,7 +102,7 @@
     document.getElementById('completeStory').addEventListener('click', () => {
       const contribution = document.getElementById('contributionList');
       const submit = document.getElementById('submit');
-      const upVote = document.getElementsById('upVote');
+      const upVote = document.getElementsByClassName('upVote');
       const completeStory = document.getElementById('completeStory');
       const acceptContribution = document.getElementById('acceptContribution');
   contribution.disabled = true;

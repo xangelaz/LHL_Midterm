@@ -41,6 +41,19 @@ router.post('/', (req, res) => {
     });
 });
 
+router.post('/:id/status', (req, res) => {
+  const id = req.params.id;
+  console.log('post for id/status', req.params.id)
+  storyComplete(id)
+    .then(() => {
+      res.redirect('/:id')
+    })
+    .catch((e) => {
+      console.error(e);
+      res.send(e);
+    });
+});
+
 // Not actually required - can revisit this if we have time
 // get all stories for a single user (who is the author).
 // to be used when clicking "My Stories"
@@ -50,14 +63,4 @@ router.get('/my_stories/:id', (req, res) => {
     res.render('my_stories', { userStories })
   })
 });
-
-router.post('/:id/status', (req, res) => {
-  const status = req.params.id;
-  storyComplete(status)
-    .catch((e) => {
-      console.error(e);
-      res.send(e);
-    });
-});
-
 module.exports = router;
