@@ -31,7 +31,8 @@ router.get('/:id', (req, res) => {
 // Adds a new story to database and redirects to home page.
 router.post('/', (req, res) => {
   const contents = req.body.story;
-  addStory({contents})
+  const title = req.body.title;
+  addStory({contents, title})
     .then((story) => {
       res.redirect('/')
     })

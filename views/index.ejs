@@ -24,36 +24,36 @@
 
   <script src="/vendor/jquery-3.0.0.js"></script>
   <script defer src="/scripts/app.js"></script>
-
-
 </head>
 
 <body>
-  <section>
+  <section id="nav">
     <%- include('navbar') %>
-    <p>
-      <% for (let id in allStories) {%>
-        <a class="storyTitle" href="/story/<%= allStories[id].id %>">
-            Title: <%= allStories[id].title %>
-        </a>
-        <br>
-        <%= allStories[id].contents %>
-        <br>
-        Number of contributions: 3
-        <br>
-        Status:
-        <% if (!allStories[id].complete) { %>
-          In Progress
-          <% } else { %>
-            Completed
-            <% } %>
-            <br>
-            <button onclick="location.href = '/story/<%= allStories[id].id %>'" type="button" value="redirect" class="btn btn-primary" id="contribute-button">Add Contribution</button>
-            <br>
+    <section class="homepage">
+      <p class="allStories">
+        <% for (let id in allStories) {%>
+          <a class="storyTitle" href="/story/<%= allStories[id].id %>">
+            <%= allStories[id].title %>
+          </a>
+          <br>
+          <%= allStories[id].contents %>
+          <br>
+          Number of contributions: 3
+          <br>
+          Status:
+          <% if (!allStories[id].complete) { %>
+            In Progress
+            <% } else { %>
+              Completed
+              <% } %>
+              <br>
+              <button onclick="location.href = '/story/<%= allStories[id].id %>'" type="button" value="redirect" class="btn" id="contribute-button">Add Contribution</button>
+              <br>
 
-            <br>
-            <%}%>
-            <p>
-            </section>
+              <br>
+              <%}%>
+              <p>
+                </section>
+              </section>
             </body>
             </html>
