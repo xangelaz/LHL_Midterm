@@ -62,7 +62,7 @@ const addStory = function(story) {
     RETURNING *;
   `, [
     1,
-    'Story Title',
+    story.title,
     story.contents
   ])
     .then((result) => {
