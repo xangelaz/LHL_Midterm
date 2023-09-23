@@ -9,7 +9,6 @@ const router  = express.Router();
 router.post('/story/:id', (req, res) => {
   const contents = req.body.contribution;
   const storyId = req.params.id;
-  console.log('req.body', req.body)
   addContribution({contents, storyId})
     .then(() => {
       res.redirect(`/story/${storyId}`)
@@ -23,7 +22,7 @@ router.post('/story/:id', (req, res) => {
 router.post('/:id/upvote', (req, res) => {
   const id = req.params.id;
   upvoteContribution(id)
-    .then(() => res.status(200))
+    // .then(() => res.status(200))
     .catch((e) => {
       console.error(e);
       res.send(e);

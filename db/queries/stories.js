@@ -6,10 +6,9 @@ const getAllStories = function() {
   return db.query(`
     SELECT *
     FROM stories
-    ORDER BY stories.date_created
+    ORDER BY stories.id
     `)
     .then((result) => {
-      console.log('getAllStories', result.rows);
       return result.rows;
     })
     .catch((err) => {
@@ -26,10 +25,9 @@ const getStoriesByUserId = function(user_id) {
     JOIN users ON stories.creator_id = users.id
     WHERE stories.creator_id = $1
     GROUP BY user.id
-    ORDER BY stories.created_date;
+    ORDER BY stories.id;
     `, [user_id])
     .then((result) => {
-      console.log('getStoriesByUserId', result.rows);
       return result.rows;
     })
     .catch((err) => {
@@ -45,7 +43,6 @@ const getStory = function(user_id) {
     WHERE id = $1;
     `, [user_id])
     .then((result) => {
-      console.log('getStoriesByUserId', result.rows);
       return result.rows[0];
     })
     .catch((err) => {
@@ -66,7 +63,6 @@ const addStory = function(story) {
     story.contents
   ])
     .then((result) => {
-      console.log('addStory', result.rows[0]);
       return result.rows[0];
     })
     .catch((err) => {

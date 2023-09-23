@@ -45,7 +45,7 @@
         </td>
       </tr>
       <ul>
-        <form id="completeStory" action="/story/<%= story.id%>/status" method="post">
+        <form class="completeStory" action="/story/<%= story.id%>/status" method="post">
           <input class="btn" type="submit" name="status" value="Complete Story" />
         </form>
 
@@ -97,10 +97,10 @@
   </script>
   <!-- Complete Story Button Script -->
   <script>
-    document.getElementById('completeStory').addEventListener('click', () => {
+    document.getElementsByClassName('completeStory')[0].addEventListener('click', () => {
       const contribution = document.getElementsByClassName('contribution');
       const submit = document.getElementById('submit');
-      const completeStory = document.getElementById('completeStory');
+      const completeStory = this;
       const upVote = document.getElementsByClassName('voteBtn');
         for (const vote of upVote) {
           vote.disabled = true;
