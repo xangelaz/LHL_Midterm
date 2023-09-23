@@ -1,134 +1,181 @@
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <title>Story Contributions</title>
-      <meta charset="utf-8" />
-      <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"
-      />
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Story Contributions</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
 
-  <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
-  <link rel="stylesheet" href="/vendor/border-box.css" />
-  <link rel="stylesheet" href="/styles/main.css" />
-  <link rel="stylesheet" href="/styles/layout.css" />
-  <link rel="stylesheet" href="/styles/nav.css" />
+    <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
+    <link rel="stylesheet" href="/vendor/border-box.css" />
+    <link rel="stylesheet" href="/styles/main.css" />
+    <link rel="stylesheet" href="/styles/layout.css" />
+    <link rel="stylesheet" href="/styles/nav.css" />
 
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <style>
-  body {font-family: "Lato", sans-serif}
-  .mySlides {display: none}
-  </style>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Lato"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <style>
+      body {
+        font-family: "Lato", sans-serif;
+      }
+      .mySlides {
+        display: none;
+      }
+    </style>
 
-  <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
+    <script src="/vendor/jquery-3.0.0.js"></script>
+    <script defer src="/scripts/app.js"></script>
+  </head>
 
-    </head>
-
-    <body>
-      <section id="nav">
+  <body>
+    <section id="nav">
       <%- include('navbar') %>
       <section class="homepage">
-        <h3 class="storyTitle" style="padding-left: 20px;">Story Contributions</h3>
-      <main class="allStories" style="margin: 1em;">
-        <tr>
-          <td>
-            <span class="storyTitle">
-              <%= story.title %>
-            </span>
-          <br>
-          <div id="storyContents">
-            <%= story.contents %>
-          </div>
-        </td>
-      </tr>
-      <ul>
-        <form id="completeStory" action="/story/<%= story.id%>/status" method="post">
-          <input class="btn" type="submit" name="status" value="Complete Story" />
-        </form>
-
-        <% for (let idx in contributions) {%>
-          <li>
-            <div id="contributionList">
-              <%= contributions[idx].contents %>
-            </div>
-            <div>
-              <button class="addBtn" id="acceptContribution">Add</button>
-            </div>
-            <p class="numOfVotes"><%=contributions[idx].upvotes%> Votes</p>
-            <form class="upVote" onclick="upVote('<%= idx%>')" action="/contributions/<%= contributions[idx].id%>/upvote" method="post">
-              <input class="voteBtn" type="submit" name="storyId" value="Upvote" />
+        <h3 class="storyTitle" style="padding-left: 20px">
+          Story Contributions
+        </h3>
+        <main class="allStories" style="margin: 1em">
+          <tr>
+            <td>
+              <span class="storyTitle"> <%= story.title %> </span>
+              <br />
+              <div id="storyContents"><%= story.contents %></div>
+            </td>
+          </tr>
+          <ul>
+            <form
+              id="completeStory"
+              action="/story/<%= story.id%>/status"
+              method="post"
+            >
+              <input
+                class="btn"
+                type="submit"
+                name="status"
+                value="Complete Story"
+              />
             </form>
-          </li>
-          <%}%>
-        </ul>
 
-        <form class="form-inline" action="/contributions/story/<%= story.id %>" method="POST">
-          <div class="form-group mb-2">
-            <label for="contribution">Enter a Contribution for the Story:</label>
-            <input
-            class="form-control"
-            type="text"
-            name="contribution"
-            style="width: 300px; margin: 1em"
-            />
-            <button id="submit" type="submit" class="btn-primary">Submit</button>
-          </div>
-        </form>
-      </main>
+            <% for (let idx in contributions) {%>
+            <li>
+              <div id="contributionList">
+                <%= contributions[idx].contents %>
+              </div>
+              <div>
+                <button class="addBtn" id="acceptContribution">Add</button>
+              </div>
+              <p class="numOfVotes"><%=contributions[idx].upvotes%> Votes</p>
+              <form
+                class="upVote"
+                onclick="upVote('<%= idx%>')"
+                action="/contributions/<%= contributions[idx].id%>/upvote"
+                method="post"
+              >
+                <input
+                  class="voteBtn"
+                  type="submit"
+                  name="storyId"
+                  value="Upvote"
+                />
+              </form>
+            </li>
+            <%}%>
+          </ul>
 
-  <!-- Add Contribution Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const acceptContribution = document.getElementById('acceptContribution');
-      const contributionList = document.getElementById('contributionList');
-      let storyCreated = document.getElementById('storyCreated');
+          <form
+            class="form-inline"
+            action="/contributions/story/<%= story.id %>"
+            method="POST"
+          >
+            <div class="form-group mb-2">
+              <label for="contribution"
+                >Enter a Contribution for the Story:</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                name="contribution"
+                style="width: 300px; margin: 1em"
+              />
+              <button id="submit" type="submit" class="btn-primary">
+                Submit
+              </button>
+            </div>
+          </form>
+        </main>
 
-      acceptContribution.addEventListener('click', () => {
-        const newContribution = `<%= story.contents %>` + ' ' + contributionList.innerText;
-        console.log(newContribution);
-        document.getElementById('storyContents').textContent = newContribution;
-        document.getElementById('contribution').textContent = '';
-      });
+        <!-- Add Contribution Script -->
+        <script>
+          document.addEventListener("DOMContentLoaded", () => {
+            const acceptContribution =
+              document.getElementById("acceptContribution");
+            const contributionList =
+              document.getElementById("contributionList");
+            let storyCreated = document.getElementById("storyCreated");
 
-    });
-  </script>
-  <!-- Complete Story Button Script -->
-  <script>
-    document.getElementById('completeStory').addEventListener('click', () => {
-      const contribution = document.getElementsByClassName('contribution');
-      const submit = document.getElementById('submit');
-      const completeStory = document.getElementById('completeStory');
-      const upVote = document.getElementsByClassName('voteBtn');
-        for (const vote of upVote) {
-          vote.disabled = true;
-        };
-        const addBtn = document.getElementsByClassName('addBtn');
-          for (const add of addBtn) {
-            add.disabled = true;
+            acceptContribution.addEventListener("click", () => {
+              const newContribution =
+                `<%= story.contents %>` + " " + contributionList.innerText;
+              console.log(newContribution);
+              document.getElementById("storyContents").textContent =
+                newContribution;
+              document.getElementById("contribution").textContent = "";
+            });
+          });
+        </script>
+        <!-- Complete Story Button Script -->
+        <script>
+          document
+            .getElementById("completeStory")
+            .addEventListener("click", function () {
+              const contribution =
+                document.getElementsByClassName("contribution");
+              const submit = document.getElementById("submit");
+              const completeStory = document.getElementById("completeStory");
+              const upVote = document.getElementsByClassName("voteBtn");
+              const addBtn = document.getElementsByClassName("addBtn");
+
+              for (const vote of upVote) {
+                vote.disabled = true;
+              }
+              for (const add of addBtn) {
+                add.disabled = true;
+              }
+              completeStory.textContent = "Story Completed";
+              submit.disabled = true;
+              // upVote.disabled = true;
+              contribution.disabled = true;
+              completeStory.disabled = true;
+            });
+        </script>
+        <!--Upvote Script-->
+        <script>
+          function upVote(vote) {
+            let votes = Number(
+              document
+                .getElementsByClassName("numOfVotes")
+                [vote].innerText.split(" ")[0]
+            );
+            votes++;
+
+            if (votes === 1) {
+              document.getElementsByClassName("numOfVotes")[vote].innerText =
+                votes + " Vote";
+            } else
+              document.getElementsByClassName("numOfVotes")[vote].innerText =
+                votes + " Votes";
           }
-  completeStory.textContent = 'Story Completed';
-  upVote.disabled = true;
-  submit.disabled = true;
-  contribution.disabled = true;
-  completeStory.disabled = true;
-});
-    </script>
-    <!--Upvote Script-->
-    <script>
-      function upVote(vote) {
-        let votes = Number(document.getElementsByClassName('numOfVotes')[vote].innerText.split(' ')[0]);
-        votes++;
-
-        if (votes === 1) {
-          document.getElementsByClassName('numOfVotes')[vote].innerText = votes + ' Vote';
-        } else
-        document.getElementsByClassName('numOfVotes')[vote].innerText = votes + ' Votes';
-      }
-      </script>
-        </section>
+        </script>
       </section>
+    </section>
   </body>
 </html>
