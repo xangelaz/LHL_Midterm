@@ -22,7 +22,6 @@ router.get('/:id', (req, res) => {
   const storyId = req.params.id;
   getStory(storyId).then((story) => {
     getAllContributions(storyId).then((contributions) => {
-      console.log('contributions', contributions)
       res.render('contributions', { story, contributions })
     })
   })
@@ -42,6 +41,7 @@ router.post('/', (req, res) => {
     });
 });
 
+// Change complete status of story after Complete Story button click
 router.post('/:id/status', (req, res) => {
   const id = req.params.id;
   console.log('post for id/status', req.params.id)
