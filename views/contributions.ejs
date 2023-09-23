@@ -44,18 +44,21 @@
           </div>
         </td>
       </tr>
-      <ul>
+
         <form class="completeStory" action="/story/<%= story.id%>/status" method="post">
           <input class="btn" type="submit" name="status" value="Complete Story" />
         </form>
-
+        <ul class="list">
         <% for (let idx in contributions) {%>
-          <li>
-            <div id="contributionList">
+          <li class="contributionEntry">
+            <div class="contributionList">
               <%= contributions[idx].contents %>
             </div>
             <div>
-              <button class="addBtn" id="acceptContribution">Add</button>
+              <!-- <button class="addBtn" id="acceptContribution">Add</button> -->
+              <form class="addContribution" onClick="addToStory('<%= idx%>')" action="/contributions/<%= contributions[idx].id%>/story/<%= story.id%>/append" method="post">
+                <input class="addButton" type="submit" name="test" value="Add" />
+              </form>
             </div>
             <p class="numOfVotes"><%=contributions[idx].upvotes%> Votes</p>
             <form class="upVote" onclick="upVote('<%= idx%>')" action="/contributions/<%= contributions[idx].id%>/upvote" method="post">
@@ -80,21 +83,6 @@
       </main>
 
   <!-- Add Contribution Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const acceptContribution = document.getElementById('acceptContribution');
-      const contributionList = document.getElementById('contributionList');
-      let storyCreated = document.getElementById('storyCreated');
-
-      acceptContribution.addEventListener('click', () => {
-        const newContribution = `<%= story.contents %>` + ' ' + contributionList.innerText;
-        console.log(newContribution);
-        document.getElementById('storyContents').textContent = newContribution;
-        document.getElementById('contribution').textContent = '';
-      });
-
-    });
-  </script>
   <!-- Complete Story Button Script -->
   <script>
     document.getElementsByClassName('completeStory')[0].addEventListener('click', () => {
@@ -116,16 +104,30 @@
   completeStory.disabled = true;
 });
     </script>
-    <!--Upvote Script-->
+    <!--Upvote and Add to Story Script-->
     <script>
-      function upVote(vote) {
-        let votes = Number(document.getElementsByClassName('numOfVotes')[vote].innerText.split(' ')[0]);
+      function upVote(idx) {
+        let votes = Number(document.getElementsByClassName('numOfVotes')[idx].innerText.split(' ')[0]);
         votes++;
 
         if (votes === 1) {
-          document.getElementsByClassName('numOfVotes')[vote].innerText = votes + ' Vote';
+          document.getElementsByClassName('numOfVotes')[idx].innerText = votes + ' Vote';
         } else
-        document.getElementsByClassName('numOfVotes')[vote].innerText = votes + ' Votes';
+        document.getElementsByClassName('numOfVotes')[idx].innerText = votes + ' Votes';
+      }
+
+      function addToStory(idx) {
+        const x = document.getElementsByClassName('contributionList')[idx];
+        console.log(x.innerText);
+
+        // Update actual story
+        const storyContents = document.getElementById('storyContents');
+        storyContents.textContent = storyContents.textContent + " " + x.innerText;
+
+
+
+        // Remove from List
+        document.getElementsByClassName("contributionEntry")[idx].hidden = true;
       }
       </script>
         </section>

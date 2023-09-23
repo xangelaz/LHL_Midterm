@@ -3,7 +3,7 @@
  */
 
 const express = require('express');
-const { addContribution, upvoteContribution } = require('../db/queries/contributions');
+const { addContribution, upvoteContribution,appendContributionToStory } = require('../db/queries/contributions');
 const router  = express.Router();
 
 router.post('/story/:id', (req, res) => {
@@ -28,5 +28,16 @@ router.post('/:id/upvote', (req, res) => {
       res.send(e);
     });
 });
+
+router.post('/:id/story/:storyId/append', (req, res) => {
+  const { id, storyId } = req.params;
+  console.log("append", { id, storyId });
+  appendContributionToStory(id, storyId)
+    .then(() => {})
+    .catch((e) => {
+      console.error(e)
+      res.send(e);
+    })
+})
 
 module.exports = router;

@@ -49,8 +49,22 @@ const upvoteContribution = function(id) {
   `, [id])
 }
 
+const appendContributionToStory = function(contributionId, storyId) {
+  return db.query(`
+  UPDATE stories
+  SET contents = CONCAT(
+    contents,
+    ' ',
+    (
+      SELECT contents FROM contributions WHERE contributions.id = $1
+    )
+  )
+  WHERE stories.id = $2`, [contributionId, storyId]);
+}
+
 module.exports = {
   getAllContributions,
   addContribution,
-  upvoteContribution
+  upvoteContribution,
+  appendContributionToStory
 };
