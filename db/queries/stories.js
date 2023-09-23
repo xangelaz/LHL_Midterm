@@ -25,7 +25,7 @@ const getStoriesByUserId = function(user_id) {
     JOIN users ON stories.creator_id = users.id
     WHERE stories.creator_id = $1
     GROUP BY user.id
-    ORDER BY stories.created_date;
+    ORDER BY stories.id;
     `, [user_id])
     .then((result) => {
       return result.rows;
