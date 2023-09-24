@@ -82,7 +82,6 @@
         </form>
       </main>
 
-  <!-- Add Contribution Script -->
   <!-- Complete Story Button Script -->
   <script>
     document.getElementsByClassName('completeStory')[0].addEventListener('click', () => {
@@ -123,8 +122,6 @@
         // Update actual story
         const storyContents = document.getElementById('storyContents');
         storyContents.textContent = storyContents.textContent + " " + x.innerText;
-
-
 
         // Remove from List
         document.getElementsByClassName("contributionEntry")[idx].hidden = true;
